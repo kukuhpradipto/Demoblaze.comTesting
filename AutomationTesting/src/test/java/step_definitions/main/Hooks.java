@@ -25,12 +25,12 @@ public class Hooks {
     }
     @After
     public void closeBrowser(Scenario scenario) throws InterruptedException {
-        Thread.sleep(2000);
         if (scenario.isFailed()) {
             TakesScreenshot takesScreenshot = (TakesScreenshot) webDriver;
             byte[] screenshot = takesScreenshot.getScreenshotAs(OutputType.BYTES);
             scenario.embed(screenshot, "image/png");
         }
+        Thread.sleep(1000);
         webDriver.quit();
     }
 }

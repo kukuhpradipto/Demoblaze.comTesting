@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        tags = {"@Login"},
+        tags = {"@All"},
         features = {"classpath:features/"},
         glue = { "classpath:step_definitions"},
         plugin= {"pretty",

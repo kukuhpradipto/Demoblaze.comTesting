@@ -18,4 +18,12 @@ public class LoginVariable {
         return "Kukuh04021998";
     }
 
+    public String unPasswordParams(){
+        return "123456789";
+    }
+
+    public String unUsernameParams(){
+        return "kukuhpradipto";
+    }
+
 }

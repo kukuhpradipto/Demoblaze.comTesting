@@ -19,99 +19,99 @@ public class LoginMyStepdefs {
         this.webDriver = Hooks.webDriver;
     }
 
-//    @Given("User already on page Login PTOS-M")
-//    public void userAlreadyOnPageLoginPTOSM() {
-//        LoginPage loginPage = new LoginPage(webDriver);
-//        loginPage.getLoginPages()
-//                .isDisplayed();
-//        Assert.assertTrue(true);
-//    }
-//
-//    @When("User input username \"(.*)\"")
-//    public void userInputUsername(String usernameParam) {
-//        LoginPage loginPage = new LoginPage(webDriver);
-//        LoginVariable loginVariable = new LoginVariable(webDriver);
-//        loginPage.getUsernameLogin()
-//                .sendKeys(loginVariable.usernameData());
-//    }
-//
-//    @And("User input password \"(.*)\"")
-//    public void userInputPassword(String passwordParam) {
-//        LoginPage loginPage = new LoginPage(webDriver);
-//        LoginVariable loginVariable = new LoginVariable(webDriver);
-//        loginPage.getPasswordLogin()
-//               .sendKeys(loginVariable.passwordData());
-//    }
-//
-//    @And("User click button Login")
-//    public void userClickButtonLogin() throws InterruptedException {
-//        LoginPage loginPage = new LoginPage(webDriver);
-//        loginPage.getButtonLogin().click();
-//        Thread.sleep(1000);
-//    }
-//
-//    @Then("User already on Home Page Application PTOS-M")
-//    public void userAlreadyOnHomePageApplicationPTOSM() {
-//        HomePage homePage = new HomePage(webDriver);
-//        homePage.getHomePageX()
-//                .isDisplayed();
-//        Assert.assertTrue(true);
-//    }
-//
-//    @And("User click eyes icon in password field")
-//    public void userClickEyesIconInPasswordField() throws InterruptedException {
-//        LoginPage loginPage = new LoginPage(webDriver);
-//        loginPage.getButtonIconEyes()
-//                .click();
-//        Thread.sleep(1000);
-//    }
-//
-//    @Then("Displays the password entered by the user")
-//    public void displaysThePasswordEnteredByTheUser() {
-//        LoginPage loginPage = new LoginPage(webDriver);
-//        LoginVariable loginVariable = new LoginVariable(webDriver);
-//        loginPage.getPasswordLogin()
-//                .getAttribute(loginVariable.passwordData());
-//    }
-
-
-    @Given("user is already on the Login page of demoblaze.com")
+    @Given("user is already on the Home page of demoblaze.com")
     public void userIsAlreadyOnTheLoginPageOfDemoblazeCom() {
         HomePage homePage = new HomePage(webDriver);
         homePage.getHomePage().isDisplayed();
         Assert.assertTrue(true);
     }
 
-    @When("user clicks on the Login menu in the Navbar on the Home page of demoblaze.com")
+    @When("user click on the Login menu in the Navbar on the Home page of demoblaze.com")
     public void userClicksOnTheLoginMenuInTheNavbarOnTheHomePageOfDemoblazeCom() throws InterruptedException {
         HomePage homePage = new HomePage(webDriver);
         homePage.getLoginMenu().click();
         Thread.sleep(1000);
     }
 
-    @And("user enter the username \"(.*)\"")
-    public void userEnterTheUsername(String usernameParam) {
+    @And("user input the username \"(.*)\"")
+    public void userInputTheUsername(String usernameParam) {
         LoginPage loginPage = new LoginPage(webDriver);
         LoginVariable loginVariable = new LoginVariable(webDriver);
         loginPage.getUsernameLogin().sendKeys(loginVariable.usernameData());
     }
 
-    @And("user enter the password \"(.*)\"")
-    public void userEnterThePassword(String password) {
+    @And("user input the password \"(.*)\"")
+    public void userInputThePassword(String password) {
         LoginPage loginPage = new LoginPage(webDriver);
         LoginVariable loginVariable = new LoginVariable(webDriver);
         loginPage.getPasswordLogin().sendKeys(loginVariable.passwordData());
     }
 
-    @And("user clicks the Login button")
-    public void userClicksTheLoginButton() {
+    @And("user click the Login button")
+    public void userClicksTheLoginButton() throws InterruptedException {
         LoginPage loginPage = new LoginPage(webDriver);
         loginPage.getButtonLogin().click();
+        Thread.sleep(2000);
     }
 
     @Then("user successfully logs in and their username are displayed in the Navbar")
     public void userSuccessfullyLogsInAndTheirNameAndEmailAreDisplayedInTheNavbar() {
         HomePage homePage = new HomePage(webDriver);
         homePage.getAccountRegister().getText();
+    }
+
+    @And("user input the unregistered password \"(.*)\"")
+    public void userInputTheUnregisteredPassword(String unPasswordParam) {
+        LoginPage loginPage = new LoginPage(webDriver);
+        LoginVariable loginVariable = new LoginVariable(webDriver);
+        loginPage.getPasswordLogin().sendKeys(loginVariable.unPasswordParams());
+    }
+
+    @Then("display pop up information wrong password")
+    public void displayPopUpInformationWrongPassword() throws InterruptedException {
+        try {
+            String a = webDriver.switchTo().alert().getText();
+            String b = "Wrong password.";
+            Assert.assertEquals(b,a);
+        }finally {
+            webDriver.quit();
+        }
+    }
+
+    @And("user input the unregistered username \"(.*)\"")
+    public void userInputTheUnregisteredUsername(String unUsernameParam) {
+        LoginPage loginPage = new LoginPage(webDriver);
+        LoginVariable loginVariable = new LoginVariable(webDriver);
+        loginPage.getUsernameLogin().sendKeys(loginVariable.unUsernameParams());
+    }
+
+    @Then("display pop up information User does not exist")
+    public void displayPopUpInformationUserDoesNotExist() throws InterruptedException {
+        try {
+            String a = webDriver.switchTo().alert().getText();
+            String b = "User does not exist.";
+            Assert.assertEquals(b,a);
+        }
+        finally {
+            webDriver.quit();
+        }
+    }
+
+    @And("user input the password with blank data")
+    public void userInputThePasswordWithBlankData() {
+        LoginPage loginPage = new LoginPage(webDriver);
+        String a = "";
+        loginPage.getPasswordLogin().sendKeys(a);
+    }
+
+    @Then("display pop up information Please fill out Password")
+    public void displayPopUpInformationPleaseFillOutPassword() {
+        try {
+            String a = webDriver.switchTo().alert().getText();
+            String b = "Please fill out Password.";
+            Assert.assertEquals(b,a);
+        } finally {
+            webDriver.quit();
+        }
     }
 }
